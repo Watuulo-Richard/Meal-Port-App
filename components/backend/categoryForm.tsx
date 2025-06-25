@@ -13,7 +13,6 @@ import MultipleImageInput from './multipleImageUpload';
 import { useCategories } from '@/hooks/use-reactquery-category';
 import { useRouter } from 'next/navigation';
 import { Category } from '@prisma/client';
-// import { Category } from '@/lib/generated/prisma';
 export default function CategoryForm({
   singleCategory,
 }: {
