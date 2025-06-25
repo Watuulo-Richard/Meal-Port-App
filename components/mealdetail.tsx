@@ -17,7 +17,7 @@ import {
   Bike,
 } from 'lucide-react';
 import { useSingleMealQuery } from '@/hooks/use-reactquery-meal';
-import { MealProduct } from '@/lib/generated/prisma';
+import { MealProduct } from '@prisma/client';
 
 // Types
 interface ProductImage {

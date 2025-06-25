@@ -11,7 +11,6 @@ import { Label } from '@/components/ui/label';
 import { baseUrl } from '@/types/types';
 import SubmitButton from '../../submit-button';
 import LoginTextInput from './loginTextInput';
-// import { UserRole } from '@/lib/generated/prisma';
 import { SignUpTypes } from '@/schema/schema';
 import { UserRole } from '@prisma/client';
 export default function RegisterForm({role='USER'}:{role?: UserRole}) {

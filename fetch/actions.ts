@@ -1,9 +1,9 @@
 'use server';
 
 import { axiosAPI } from '@/config/axios';
-import { User } from '@/lib/generated/prisma';
 import { CategoryFormData, MealTypes } from '@/schema/schema';
 import { baseUrl, UpdateCategoryTypes, UpdateMealTypes } from '@/types/types';
+import { User } from '@prisma/client';
 export async function fetchMealCategories() {
   try {
     const response = await axiosAPI.get('/categoryAPI');

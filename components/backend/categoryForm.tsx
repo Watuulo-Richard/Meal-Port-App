@@ -12,13 +12,14 @@ import { CategoryFormData, categorySchema } from '@/schema/schema';
 import MultipleImageInput from './multipleImageUpload';
 import { useCategories } from '@/hooks/use-reactquery-category';
 import { useRouter } from 'next/navigation';
-import { Category } from '@/lib/generated/prisma';
+import { Category } from '@prisma/client';
+// import { Category } from '@/lib/generated/prisma';
 export default function CategoryForm({
   singleCategory,
 }: {
   singleCategory: Category | null;
 }) {
-  console.log(singleCategory, 'mpweedde nzee');
+
   const { createCategories } = useCategories();
   const { updateCategory } = useCategories();
   const router = useRouter();
