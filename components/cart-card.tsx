@@ -22,7 +22,6 @@ export default function CartCard({ cartItem }: { cartItem: CartTypes }) {
             alt={cartItem.name}
             className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-cover flex-shrink-0"
           />
-
           <div className="flex-1 min-w-0">
             <h4 className="text-xs sm:text-sm font-medium text-gray-900 truncate">
               {cartItem.name}
