@@ -1,6 +1,3 @@
-// import { getUserById } from "@/actions/users";
-// import VerifyTokenForm from "@/components/VerifyTokenForm";
-
 import VerifyTokenForm from "@/components/backend/auth/verifyForm";
 import { getUserAction } from "@/fetch/actions";
 

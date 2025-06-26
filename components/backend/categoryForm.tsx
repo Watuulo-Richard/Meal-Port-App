@@ -14,6 +14,7 @@ import { useCategories } from '@/hooks/use-reactquery-category';
 import { useRouter } from 'next/navigation';
 import { Category } from '@prisma/client';
 export default function CategoryForm({
+  
   singleCategory,
 }: {
   singleCategory: Category | null;
