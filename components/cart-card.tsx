@@ -11,13 +11,14 @@ export default function CartCard({ cartItem }: { cartItem: CartTypes }) {
     handleIncrement,
     handleDecrement,
   } = useCartState();
+  console.log(cartItem);
 
   return (
     <div className="max-w-md mx-auto p-4 space-y-4">
       <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition-shadow">
         <div className="flex items-center gap-3">
           <img
-            src={cartItem.images[0] || '/placeholder.png'}
+            src={cartItem.images[1] || '/placeholder.png'}
             alt={cartItem.name}
             className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-cover flex-shrink-0"
           />
@@ -71,7 +72,6 @@ export default function CartCard({ cartItem }: { cartItem: CartTypes }) {
           </div>
         </div>
       </div>
-      {/* ))} */}
 
       {cartArray.length === 0 && (
         <div className="text-center py-8 text-gray-500">Your cart is empty</div>
