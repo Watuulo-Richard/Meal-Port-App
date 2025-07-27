@@ -135,8 +135,8 @@ model OrderItem {
   orderId           String
   order             Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
   // Meal relationship
-  meal              MealProduct @relation(fields: [mealId], references: [id], onDelete: Restrict)
-  mealId            String
+  meal              MealProduct? @relation(fields: [mealId], references: [id], onDelete: Restrict)
+  mealId            String?
 
   // Item details (snapshot at time of order)
   mealName          String      // Store name at time of order
