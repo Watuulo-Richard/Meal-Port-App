@@ -10,6 +10,7 @@ import { ShoppingCart } from "lucide-react"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { useFetchMealsByCategory } from "@/hooks/use-reactquery-meal"
 import { motion, AnimatePresence } from "framer-motion"
+import { Session } from "next-auth"
 
 // Animation variants
 const containerVariants = {
@@ -132,7 +133,7 @@ const noDataVariants = {
   },
 }
 
-export default function MealsPage() {
+export default function MealsPage({session}:{session:Session | null}) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const { getMealsByCategory } = useFetchMealsByCategory(selectedCategory)
 
@@ -182,7 +183,7 @@ export default function MealsPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              <Cart />
+              <Cart session={session} />
             </motion.div>
           </SheetContent>
         </Sheet>
@@ -272,7 +273,7 @@ export default function MealsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <Cart />
+              <Cart session={session}/>
             </motion.div>
           </div>
         </motion.aside>

@@ -28,8 +28,9 @@ import { useCartState } from '@/store/store';
 import { toast } from 'sonner';
 import { Label } from '../ui/label';
 import { baseUrl } from '@/types/types';
+import { Session } from 'next-auth';
 
-export default function OrderForm() {
+export default function OrderForm({session}:{session:Session | null}) {
   const { cartArray } = useCartState();
   const [loading, setLoading] = useState(false);
   const {
@@ -48,12 +49,14 @@ export default function OrderForm() {
   });
 
   async function handleOrder(orderData: OrderTypes) {
+    orderData.userId = session?.user.id;
     const orderDetails = {
       firstName: orderData.firstName,
       lastName: orderData.lastName,
       email: orderData.email,
       phone: orderData.phone,
       orderItems: cartArray,
+      userId: orderData.userId
     };
     try {
       setLoading(true);

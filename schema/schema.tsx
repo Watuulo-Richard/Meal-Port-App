@@ -58,6 +58,7 @@ export const orderSchema = z.object({
     .min(1, 'Character must be greater than 1'),
   phone: z.string().min(0, 'Discount price must be 0 or greater'),
   orderItems: z.array(z.string()).optional(),
+  userId: z.string().optional().nullable()
 });
 
 export type OrderTypes = z.infer<typeof orderSchema>;

@@ -10,6 +10,7 @@ export async function POST(request: NextRequest) {
         lastName: orderDetails.lastName,
         email: orderDetails.email,
         phone: orderDetails.phone,
+        userId: orderDetails.userId
       },
     });
     console.log(createOrder, 'the order');

@@ -10,8 +10,9 @@ import {
   DialogTrigger,
 } from './ui/dialog';
 import OrderForm from './frontend/check-out-form';
+import { Session } from 'next-auth';
 
-export function Cart() {
+export function Cart({session}:{session:Session | null}) {
   const { cartArray } = useCartState();
 
   const subtotal = cartArray.reduce(
@@ -65,7 +66,7 @@ export function Cart() {
           </DialogTrigger>
           <DialogContent className="max-w-[425px] md:max-w-[625px]">
             <div className="">
-              <OrderForm/>
+              <OrderForm session={session}/>
             </div>
           </DialogContent>
         </Dialog>

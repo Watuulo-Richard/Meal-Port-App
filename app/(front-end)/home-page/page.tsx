@@ -1,10 +1,13 @@
 import MealsPage from '@/components/frontend/meals-page'
+import { authOptions } from '@/config/authoptions';
+import { getServerSession } from 'next-auth';
 import React from 'react'
 
-export default function Page() {
+export default async function Page() {
+  const session = await getServerSession(authOptions);
   return (
     <>
-      <MealsPage/>
+      <MealsPage session={session}/>
     </>
   )
 }
