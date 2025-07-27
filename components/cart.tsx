@@ -1,12 +1,18 @@
-'use client'
+'use client';
 import CartCard from './cart-card';
-import { Edit2 } from 'lucide-react';
 import { useCartState } from '@/store/store';
 import { ScrollArea } from './ui/scroll-area';
 import { Button } from '@/components/ui/button';
+import { Edit2 } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from './ui/dialog';
+import OrderForm from './frontend/check-out-form';
 
 export function Cart() {
-  const {cartArray} = useCartState()
+  const { cartArray } = useCartState();
 
   const subtotal = cartArray.reduce(
     (acc, item) => acc + item.price * item.numberOfPlates,
@@ -20,7 +26,9 @@ export function Cart() {
       <div className="p-4 border-b flex justify-between items-center">
         <div>
           <h2 className="text-xl font-bold">Your Food Cart</h2>
-          <p className="text-sm text-gray-500">There Are {cartArray.length} Meals In Your Cart</p>
+          <p className="text-sm text-gray-500">
+            There Are {cartArray.length} Meals In Your Cart
+          </p>
         </div>
         <Button variant="ghost" size="icon">
           <Edit2 className="h-5 w-5" />
@@ -28,13 +36,9 @@ export function Cart() {
       </div>
       <div className="flex-1 overflow-auto">
         <ScrollArea className="h-[400px] pr-4">
-          {
-            cartArray.map((cartItem) => {
-              return (
-                <CartCard key={cartItem.slug} cartItem={cartItem}/>
-              )
-            })
-          }
+          {cartArray.map((cartItem) => {
+            return <CartCard key={cartItem.slug} cartItem={cartItem} />;
+          })}
         </ScrollArea>
       </div>
       <div className="border-t p-4">
@@ -52,9 +56,19 @@ export function Cart() {
             <span>${total.toFixed(2)}</span>
           </div>
         </div>
-        <Button className="w-full bg-green-600 hover:bg-green-700 text-white h-12">
-          Place Order
-        </Button>
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="w-full bg-green-600 hover:bg-green-700 text-white h-12">
+              Place Order
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-[425px] md:max-w-[625px]">
+            <div className="">
+              <OrderForm/>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

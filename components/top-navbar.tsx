@@ -20,15 +20,18 @@ import { ShoppingCart } from 'lucide-react';
 import CheckoutInteraction from './checkoutCart';
 import { Badge } from './ui/badge';
 import { useCartState } from '@/store/store';
+import { Session } from 'next-auth';
 
-export function TopNav() {
+export function TopNav({ session }: { session: Session }) {
+  console.log(session);
   const pathname = usePathname();
   const pathSegments = pathname.split('/').filter(Boolean);
   const { settings } = useSettings();
-  const {cartArray} = useCartState()
+  const { cartArray } = useCartState();
+  const name = `${session.user.firstName} ${session.user.lastName}`;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-green-400 bg-[#EEE9DB]">
+    <header className="sticky top-0 z-40 border-b border-green-300 bg-[#EEE9DB]">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         <div className="hidden md:block">
           <nav className="flex items-center space-x-2">
@@ -48,7 +51,7 @@ export function TopNav() {
             ))}
           </nav>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center ml-60 sm:ml-0 gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -65,11 +68,9 @@ export function TopNav() {
             <DropdownMenuContent className="w-full p-4" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    {settings.fullName}
-                  </p>
+                  <p className="text-sm font-medium leading-none">{name}</p>
                   <p className="text-xs leading-none text-muted-foreground">
-                    {settings.email}
+                    {session.user.email}
                   </p>
                 </div>
               </DropdownMenuLabel>
@@ -91,9 +92,9 @@ export function TopNav() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={settings.avatar} alt={settings.fullName} />
+                  <AvatarImage src={session.user.image} alt={name} />
                   <AvatarFallback>
-                    {settings.fullName
+                    {name
                       .split(' ')
                       .map((n) => n[0])
                       .join('')}
@@ -104,11 +105,9 @@ export function TopNav() {
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    {settings.fullName}
-                  </p>
+                  <p className="text-sm font-medium leading-none">{name}</p>
                   <p className="text-xs leading-none text-muted-foreground">
-                    {settings.email}
+                    {session.user.email}
                   </p>
                 </div>
               </DropdownMenuLabel>
@@ -116,6 +115,11 @@ export function TopNav() {
               <DropdownMenuItem asChild>
                 <Link href="/settings">Profile</Link>
               </DropdownMenuItem>
+              {session.user.role === 'ADMIN' && (
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard">Dashboard</Link>
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem asChild>
                 <Link href="/settings">Settings</Link>
               </DropdownMenuItem>

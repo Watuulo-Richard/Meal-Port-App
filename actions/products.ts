@@ -1,7 +1,6 @@
 'use server';
 
 import { prismaClient } from '@/prisma/db';
-
 export default async function getMealsByCategory(slug: string) {
   try {
     let meals = [];

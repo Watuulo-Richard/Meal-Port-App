@@ -184,7 +184,7 @@ export default function MealCard({ fetchedMeal }: { fetchedMeal: MealTypes }) {
               className="w-full border border-red-300 hover:bg-red-600 transition-all duration-300 text-xs sm:text-sm text-red-600 hover:text-white py-2"
               onClick={() => handleRemoveFromCart(fetchedMeal.slug)}
             >
-              <Trash2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <Trash2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-1" />
               Remove from Cart
             </Button>
           ) : (
@@ -193,7 +193,7 @@ export default function MealCard({ fetchedMeal }: { fetchedMeal: MealTypes }) {
               onClick={() => addToCart()}
               disabled={quantity === 0}
             >
-              <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-1" />
               Add to Cart
             </Button>
           )}

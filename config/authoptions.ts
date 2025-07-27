@@ -1,11 +1,11 @@
-import { compare } from 'bcrypt-ts';
+import { JWT } from 'next-auth/jwt';
 import { prismaClient } from '@/prisma/db';
 import { NextAuthOptions } from 'next-auth';
 import type { Adapter } from 'next-auth/adapters';
+import { compare } from 'bcrypt-ts';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { JWT } from 'next-auth/jwt';
 
 // more providers at https://next-auth.js.org/providers
 export const authOptions: NextAuthOptions = {

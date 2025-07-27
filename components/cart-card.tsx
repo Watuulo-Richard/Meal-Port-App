@@ -11,14 +11,22 @@ export default function CartCard({ cartItem }: { cartItem: CartTypes }) {
     handleIncrement,
     handleDecrement,
   } = useCartState();
-  console.log(cartItem);
+
+  // Safe image access with fallbacks
+  function getImageSrc() {
+    if(!cartItem.images || cartItem.images.length === 0) {
+      return '/placeholder.png'
+    } else {
+      return cartItem.images[1] || cartItem.images[0] || '/placeholder.png'
+    }
+  }
 
   return (
     <div className="max-w-md mx-auto p-4 space-y-4">
       <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition-shadow">
         <div className="flex items-center gap-3">
           <img
-            src={cartItem.images[1] || '/placeholder.png'}
+            src={getImageSrc()}
             alt={cartItem.name}
             className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-cover flex-shrink-0"
           />

@@ -5,9 +5,9 @@ import { toast } from "sonner";
 export type CartTypes = {
   name:              string;
   slug:              string;
-  images:             string[];
+  images:            string[];
   price:             number;
-  numberOfPlates:     number;
+  numberOfPlates:    number;
   categoryId:        string;
 }
 

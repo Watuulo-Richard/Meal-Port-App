@@ -41,3 +41,23 @@ export const loginSchema = z.object({
 });
 
 export type LoginTypes = z.infer<typeof loginSchema>;
+
+// Zod schema for product validation
+export const orderSchema = z.object({
+  firstName: z
+    .string()
+    .min(1, 'Meal name is required')
+    .max(100, 'Meal Name must be less than 100 characters'),
+  lastName: z
+    .string()
+    .min(1, 'Meal name is required')
+    .max(100, 'Meal Name must be less than 100 characters'),
+  email: z
+    .string()
+    .email('Invalid Email')
+    .min(1, 'Character must be greater than 1'),
+  phone: z.string().min(0, 'Discount price must be 0 or greater'),
+  orderItems: z.array(z.string()).optional(),
+});
+
+export type OrderTypes = z.infer<typeof orderSchema>;

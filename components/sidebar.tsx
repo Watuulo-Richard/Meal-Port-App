@@ -1,8 +1,8 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import {
   Home,
   BarChart2,
@@ -19,13 +19,18 @@ import {
   HelpCircle,
   Menu,
   ChevronLeft,
-} from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from '@/components/ui/tooltip';
 
 const navigation = [
-  { name: "Home", href: "/", icon: Home },
+  { name: 'Home', href: '/', icon: Home },
   // { name: "Analytics", href: "/analytics", icon: BarChart2 },
   // { name: "Organization", href: "/organization", icon: Building2 },
   // { name: "Projects", href: "/projects", icon: Folder },
@@ -34,40 +39,46 @@ const navigation = [
   // { name: "Payments", href: "/payments", icon: CreditCard },
   // { name: "Members", href: "/members", icon: Users2 },
   // { name: "Permissions", href: "/permissions", icon: Shield },
-  // { name: "Chat", href: "/chat", icon: MessagesSquare },
+  { name: "Chat", href: "/chat", icon: MessagesSquare },
   // { name: "Meetings", href: "/meetings", icon: Video },
-]
+];
 
 const bottomNavigation = [
-  { name: "Settings", href: "/settings", icon: Settings },
-  { name: "Help", href: "/help", icon: HelpCircle },
-]
+  { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Help', href: '/help', icon: HelpCircle },
+];
 
 type NavigationItem = {
-  name: string
-  href: string
-  icon: React.ComponentType<{ className?: string }>
-}
+  name: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
 
 export default function Sidebar() {
-  const pathname = usePathname()
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const pathname = usePathname();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const NavItem = ({ item, isBottom = false }: { item: NavigationItem; isBottom?: boolean }) => (
+  const NavItem = ({
+    item,
+    isBottom = false,
+  }: {
+    item: NavigationItem;
+    isBottom?: boolean;
+  }) => (
     <Tooltip delayDuration={0}>
       <TooltipTrigger asChild>
         <Link
           href={item.href}
           className={cn(
-            "flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors",
+            'flex items-center rounded-md px-3 py-2 text-sm transition-colors bg-[#EEE9DB]/5 text-green-600 font-semibold',
             pathname === item.href
-              ? "bg-secondary text-secondary-foreground"
-              : "text-muted-foreground hover:bg-secondary hover:text-secondary-foreground",
-            isCollapsed && "justify-center px-2",
+              ? 'bg-secondary text-secondary-foreground'
+              : 'text-muted-foreground hover:bg-secondary hover:text-secondary-foreground',
+            isCollapsed && 'justify-center px-2',
           )}
         >
-          <item.icon className={cn("h-4 w-4", !isCollapsed && "mr-3")} />
+          <item.icon className={cn('h-4 w-4', !isCollapsed && 'mr-3')} />
           {!isCollapsed && <span>{item.name}</span>}
         </Link>
       </TooltipTrigger>
@@ -77,7 +88,7 @@ export default function Sidebar() {
         </TooltipContent>
       )}
     </Tooltip>
-  )
+  );
 
   return (
     <TooltipProvider>
@@ -91,13 +102,20 @@ export default function Sidebar() {
         </button>
         <div
           className={cn(
-            "fixed inset-y-0 z-20 flex flex-col bg-[#EEE9DB] transition-all duration-300 ease-in-out lg:static border-r border-green-400",
-            isCollapsed ? "w-[72px]" : "w-72",
-            isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+            'fixed inset-y-0 z-20 flex flex-col bg-[#EEE9DB] transition-all duration-300 ease-in-out lg:static border-r border-green-400',
+            isCollapsed ? 'w-[72px]' : 'w-72',
+            isMobileOpen
+              ? 'translate-x-0'
+              : '-translate-x-full lg:translate-x-0',
           )}
         >
           <div className="border-b border-green-400 border-border">
-            <div className={cn("flex h-16 items-center gap-2 px-4", isCollapsed && "justify-center px-2")}>
+            <div
+              className={cn(
+                'flex h-16 items-center gap-2 px-4',
+                isCollapsed && 'justify-center px-2',
+              )}
+            >
               {!isCollapsed && (
                 <Link href="/" className="flex items-center font-semibold">
                   <span className="text-lg">Meal-Port</span>
@@ -106,11 +124,18 @@ export default function Sidebar() {
               <Button
                 variant="ghost"
                 size="sm"
-                className={cn("ml-auto h-8 w-8", isCollapsed && "ml-0")}
+                className={cn('ml-auto h-8 w-8', isCollapsed && 'ml-0')}
                 onClick={() => setIsCollapsed(!isCollapsed)}
               >
-                <ChevronLeft className={cn("h-4 w-4 transition-transform", isCollapsed && "rotate-180")} />
-                <span className="sr-only">{isCollapsed ? "Expand" : "Collapse"} Sidebar</span>
+                <ChevronLeft
+                  className={cn(
+                    'h-4 w-4 transition-transform',
+                    isCollapsed && 'rotate-180',
+                  )}
+                />
+                <span className="sr-only">
+                  {isCollapsed ? 'Expand' : 'Collapse'} Sidebar
+                </span>
               </Button>
             </div>
           </div>
@@ -131,5 +156,5 @@ export default function Sidebar() {
         </div>
       </>
     </TooltipProvider>
-  )
+  );
 }

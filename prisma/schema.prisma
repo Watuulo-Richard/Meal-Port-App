@@ -16,13 +16,11 @@ datasource db {
 
 model Category {
   id                String    @id @default(cuid())
-
   name              String
   slug              String    @unique
   description       String
   images            String[]
   meals             MealProduct[]
-
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
@@ -38,6 +36,7 @@ model MealProduct {
   ingredients       String[]
   category          Category @relation(fields: [categoryId], references: [id])
   categoryId        String
+  orders            OrderItem[]
 
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
@@ -88,10 +87,70 @@ model User {
   phone             String?
   accounts          Account[]
   sessions          Session[]
+  orders            Order[]
   isVerified        Boolean   @default(false)
   token             Int?
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PREPARING
+  READY
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+model Order {
+  id                String @id @default(cuid())
+  // Customer Information
+  email             String
+  firstName         String
+  lastName          String
+  phone             String
+  // Optional: Link to registered user
+  user              User @relation(fields: [userId], references: [id])
+  userId            String
+  // Order Details
+  orderNumber       String        @unique @default(cuid())
+  orderItems        OrderItem[]
+  // Pricing
+  // subtotal          Float
+  // taxAmount         Float         @default(0)
+  // deliveryFee       Float         @default(0)
+  // totalAmount       Float
+
+  // Status
+  orderStatus       OrderStatus   @default(PENDING)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model OrderItem {
+  id                String      @id @default(cuid())
+  // Order relationship
+  orderId           String
+  order             Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  // Meal relationship
+  meal              MealProduct @relation(fields: [mealId], references: [id], onDelete: Restrict)
+  mealId            String
+
+  // Item details (snapshot at time of order)
+  mealName          String      // Store name at time of order
+  mealPrice         Float       // Store price at time of order
+  mealImage         String?     // Store primary image at time of order
+  // Quantity and pricing
+  quantity          Int
+  unitPrice         Float
+  totalPrice        Float       // quantity * unitPrice
+
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+}
+
+
  
 
