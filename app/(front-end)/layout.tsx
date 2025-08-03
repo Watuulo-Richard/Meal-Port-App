@@ -26,7 +26,7 @@ export default async function FrontendLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-[#EEE9DB]">
+      <body>
         <SettingsProvider>
           <TooltipProvider delayDuration={0}>
             <div className="min-h-screen flex">

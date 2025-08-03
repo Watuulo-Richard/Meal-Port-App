@@ -46,7 +46,7 @@ export default function CartCard({ cartItem }: { cartItem: CartTypes }) {
                     size="sm"
                     variant="outline"
                     className="h-7 w-7 p-0 rounded-full border-gray-300 hover:border-gray-400"
-                    onClick={() => handleDecrement(cartItem.slug)}
+                    onClick={() => handleDecrement(cartItem.id)}
                   >
                     <Minus className="h-3 w-3" />
                   </Button>
@@ -59,7 +59,7 @@ export default function CartCard({ cartItem }: { cartItem: CartTypes }) {
                     size="sm"
                     variant="outline"
                     className="h-7 w-7 p-0 rounded-full border-gray-300 hover:border-gray-400"
-                    onClick={() => handleIncrement(cartItem.slug)}
+                    onClick={() => handleIncrement(cartItem.id)}
                   >
                     <Plus className="h-3 w-3" />
                   </Button>
@@ -70,7 +70,7 @@ export default function CartCard({ cartItem }: { cartItem: CartTypes }) {
                   size="sm"
                   variant="ghost"
                   className="h-7 w-7 p-0 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-full"
-                  onClick={() => handleRemoveFromCart(cartItem.slug)}
+                  onClick={() => handleRemoveFromCart(cartItem.id)}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </Button>

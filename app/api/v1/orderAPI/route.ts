@@ -4,12 +4,14 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest) {
   try {
     const orderDetails = await request.json();
+    console.log(orderDetails, 'They...')
     const createOrder = await prismaClient.order.create({
       data: {
         firstName: orderDetails.firstName,
         lastName: orderDetails.lastName,
         email: orderDetails.email,
         phone: orderDetails.phone,
+        totalAmount: orderDetails.totalAmount,
         userId: orderDetails.userId
       },
     });
@@ -19,21 +21,11 @@ export async function POST(request: NextRequest) {
       // Here After Having Access To One Item, I send One By One To The DB
       const createOrderItemsInDB = await prismaClient.orderItem.create({
         data: {
-          //                     name:              string;
-          //   slug:              string;
-          //   images:            string[];
-          //   price:             number;
-          //   numberOfPlates:    number;
-          //   categoryId:        string;
-
           orderId: createOrder.id,
-          mealId: orderItem.slug,
+          mealId: orderItem.id, 
           mealName: orderItem.name,
           mealPrice: orderItem.price,
-          mealImage: orderItem.images,
           quantity: orderItem.numberOfPlates,
-          unitPrice: orderItem.unitPrice,
-          totalPrice: orderItem.totalPrice,
         },
       });
       console.log(createOrderItemsInDB, 'the items to be sent in the DB');

@@ -38,7 +38,7 @@ export function Cart({session}:{session:Session | null}) {
       <div className="flex-1 overflow-auto">
         <ScrollArea className="h-[400px] pr-4">
           {cartArray.map((cartItem) => {
-            return <CartCard key={cartItem.slug} cartItem={cartItem} />;
+            return <CartCard key={cartItem.id} cartItem={cartItem} />;
           })}
         </ScrollArea>
       </div>
@@ -66,7 +66,7 @@ export function Cart({session}:{session:Session | null}) {
           </DialogTrigger>
           <DialogContent className="max-w-[425px] md:max-w-[625px]">
             <div className="">
-              <OrderForm session={session}/>
+              <OrderForm total={total} session={session}/>
             </div>
           </DialogContent>
         </Dialog>

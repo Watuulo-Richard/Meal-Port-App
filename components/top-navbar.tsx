@@ -21,6 +21,7 @@ import CheckoutInteraction from './checkoutCart';
 import { Badge } from './ui/badge';
 import { useCartState } from '@/store/store';
 import { Session } from 'next-auth';
+import { CommandMenu } from './frontend/command-menu';
 
 export function TopNav({ session }: { session: Session }) {
   console.log(session);
@@ -52,6 +53,7 @@ export function TopNav({ session }: { session: Session }) {
           </nav>
         </div>
         <div className="flex items-center ml-60 sm:ml-0 gap-4">
+          <CommandMenu />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">

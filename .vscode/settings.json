@@ -12,6 +12,7 @@
         "mealdetail",
         "mealport",
         "mealservice",
+        "navitem",
         "NEXTAUTH",
         "Obonyo",
         "reactquery",

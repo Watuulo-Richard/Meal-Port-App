@@ -98,7 +98,7 @@ export type MutationUpdateMealResponse = {
 
 export type MealTypes = {
   name: string;
-  slug: string;
+  id: string;
   description: string;
   images: string[];
   price: number;

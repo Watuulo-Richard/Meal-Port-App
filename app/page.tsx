@@ -314,7 +314,7 @@ export default function PhotographyHero() {
                               </button>
                             </div>
 
-                            <button className="rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-all hover:bg-white/20">
+                            <button aria-label="Share" className="rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-all hover:bg-white/20">
                               <Share2 className="h-4 w-4" />
                             </button>
                           </div>

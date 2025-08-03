@@ -121,8 +121,7 @@ model Order {
   // subtotal          Float
   // taxAmount         Float         @default(0)
   // deliveryFee       Float         @default(0)
-  // totalAmount       Float
-
+  totalAmount       Int
   // Status
   orderStatus       OrderStatus   @default(PENDING)
   createdAt         DateTime  @default(now())
@@ -135,17 +134,16 @@ model OrderItem {
   orderId           String
   order             Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
   // Meal relationship
-  meal              MealProduct? @relation(fields: [mealId], references: [id], onDelete: Restrict)
-  mealId            String?
+  meal              MealProduct @relation(fields: [mealId], references: [id], onDelete: Restrict)
+  mealId            String
 
   // Item details (snapshot at time of order)
   mealName          String      // Store name at time of order
-  mealPrice         Float       // Store price at time of order
-  mealImage         String?     // Store primary image at time of order
+  mealPrice         Int       // Store price at time of order
   // Quantity and pricing
   quantity          Int
-  unitPrice         Float
-  totalPrice        Float       // quantity * unitPrice
+  // unitPrice         Int
+  // totalPrice        Int       // quantity * unitPrice
 
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt

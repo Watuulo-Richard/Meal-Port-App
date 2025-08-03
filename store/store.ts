@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 export type CartTypes = {
   name:              string;
-  slug:              string;
+  id:              string;
   images:            string[];
   price:             number;
   numberOfPlates:    number;
@@ -14,9 +14,9 @@ export type CartTypes = {
 type CartState = {
     cartArray: CartTypes[];
     handleAddToCart(meal: CartTypes): void,
-    handleRemoveFromCart(slug: string): void,
-    handleIncrement(slug: string): void,
-    handleDecrement(slug: string): void,
+    handleRemoveFromCart(id: string): void,
+    handleIncrement(id: string): void,
+    handleDecrement(id: string): void,
     handleClear(): void
 }
 
@@ -27,7 +27,7 @@ export const useCartState = create<CartState>() (
 
             handleAddToCart(meal: CartTypes) {
                 const cartStore = get().cartArray
-                const existingMealInCart = cartStore.find((item) => item.slug === meal.slug)
+                const existingMealInCart = cartStore.find((item) => item.id === meal.id)
                 if(existingMealInCart) {
                     toast.error('Meal Already In Cart')
                 } else {
@@ -36,22 +36,22 @@ export const useCartState = create<CartState>() (
                     toast.success('Meal Has Been Added To Your Cart Successfully')
                 }
             },
-            handleRemoveFromCart(slug) {
+            handleRemoveFromCart(id) {
                 const cartStore = get().cartArray
-                const filteredMeal = cartStore.filter((item)=>item.slug !== slug)
+                const filteredMeal = cartStore.filter((item)=>item.id !== id)
                 set({cartArray:filteredMeal})
             },
-            handleIncrement(slug) {
+            handleIncrement(id) {
                 const cartStore = get().cartArray
-                const mealInCart = cartStore.find((item) => item.slug === slug)
+                const mealInCart = cartStore.find((item) => item.id === id)
                 if(mealInCart) {
                     mealInCart.numberOfPlates += 1;
                     set({cartArray:cartStore})
                 }
             },
-            handleDecrement(slug) {
+            handleDecrement(id) {
                 const cartStore = get().cartArray
-                const mealInCart = cartStore.find((item) => item.slug === slug)
+                const mealInCart = cartStore.find((item) => item.id === id)
                 if(mealInCart) {
                     mealInCart.numberOfPlates -= 1;
                     set({cartArray: cartStore})

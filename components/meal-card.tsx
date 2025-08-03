@@ -28,13 +28,13 @@ export default function MealCard({ fetchedMeal }: { fetchedMeal: MealTypes }) {
   const [isHovered, setIsHovered] = useState(false);
 
   const mealToBeAddedInCart = cartArray.find(
-    (meal) => meal.slug === fetchedMeal.slug,
+    (meal) => meal.id === fetchedMeal.id,
   );
 
   function addToCart() {
     const cartObjectStructure = {
       name: fetchedMeal.name,
-      slug: fetchedMeal.slug,
+      id: fetchedMeal.id,
       price: fetchedMeal.price,
       images: fetchedMeal.images,
       categoryId: fetchedMeal.categoryId,
@@ -86,7 +86,7 @@ export default function MealCard({ fetchedMeal }: { fetchedMeal: MealTypes }) {
 
           {/* Image carousel */}
           <div className="h-32 sm:h-40 w-full relative">
-            <Link href={`/meal-detail-page/${fetchedMeal.slug}`}>
+            <Link href={`/meal-detail-page/${fetchedMeal.id}`}>
               <img
                 src={fetchedMeal.images?.[imageIndex] || '/placeholder.svg'}
                 alt={fetchedMeal.name}
@@ -182,7 +182,7 @@ export default function MealCard({ fetchedMeal }: { fetchedMeal: MealTypes }) {
             <Button
               variant="outline"
               className="w-full border border-red-300 hover:bg-red-600 transition-all duration-300 text-xs sm:text-sm text-red-600 hover:text-white py-2"
-              onClick={() => handleRemoveFromCart(fetchedMeal.slug)}
+              onClick={() => handleRemoveFromCart(fetchedMeal.id)}
             >
               <Trash2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-1" />
               Remove from Cart

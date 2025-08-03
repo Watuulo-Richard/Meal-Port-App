@@ -30,7 +30,7 @@ import { Label } from '../ui/label';
 import { baseUrl } from '@/types/types';
 import { Session } from 'next-auth';
 
-export default function OrderForm({session}:{session:Session | null}) {
+export default function OrderForm({total, session}:{total:number, session:Session | null}) {
   const { cartArray } = useCartState();
   const [loading, setLoading] = useState(false);
   const {
@@ -56,8 +56,10 @@ export default function OrderForm({session}:{session:Session | null}) {
       email: orderData.email,
       phone: orderData.phone,
       orderItems: cartArray,
+      totalAmount: total,
       userId: orderData.userId
     };
+    console.log(orderDetails, 'giijii')
     try {
       setLoading(true);
       const response = await fetch(`${baseUrl}/api/v1/orderAPI`, {
