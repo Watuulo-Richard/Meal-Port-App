@@ -1,21 +1,12 @@
 'use client';
+import Image from 'next/image';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 
-import {
-  Star,
-  Package,
-  Tag,
-  DollarSign,
-  Image,
-  Plus,
-  X,
-  Sparkles,
-  Loader2,
-} from 'lucide-react';
+import { Loader2, ShoppingCart } from 'lucide-react';
 import { orderSchema, OrderTypes } from '@/schema/schema';
 import {
   Card,
@@ -29,8 +20,19 @@ import { toast } from 'sonner';
 import { Label } from '../ui/label';
 import { baseUrl } from '@/types/types';
 import { Session } from 'next-auth';
+import { Origami } from './order-icon';
 
-export default function OrderForm({total, session}:{total:number, session:Session | null}) {
+export default function OrderForm({
+  tax,
+  subtotal,
+  total,
+  session,
+}: {
+  tax: number;
+  subtotal: number;
+  total: number;
+  session: Session | null;
+}) {
   const { cartArray } = useCartState();
   const [loading, setLoading] = useState(false);
   const {
@@ -57,9 +59,8 @@ export default function OrderForm({total, session}:{total:number, session:Sessio
       phone: orderData.phone,
       orderItems: cartArray,
       totalAmount: total,
-      userId: orderData.userId
+      userId: orderData.userId,
     };
-    console.log(orderDetails, 'giijii')
     try {
       setLoading(true);
       const response = await fetch(`${baseUrl}/api/v1/orderAPI`, {
@@ -86,27 +87,27 @@ export default function OrderForm({total, session}:{total:number, session:Sessio
   }
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 via-white to-slate-100 p-4 md:p-8">
+    <div className="p-4 md:p-2">
       <div className="max-w-6xl mx-auto ">
         {/* Header */}
-        <div className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
+        <div className="text-center pb-2">
+          {/* <div className="flex items-center justify-center gap-2 mb-4">
             <Package className="h-8 w-8 text-blue-600" />
             <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 bg-clip-text text-transparent">
               Product Creator
             </h1>
-          </div>
-          <p className="text-gray-600 text-lg">
+          </div> */}
+          <p className="text-green-600 text-2xl font-bold border-b-2 border-green-600">
             Create beautiful product listings with professional validation
           </p>
         </div>
 
-        <div className="grid max-w-2xl mx-auto gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 mx-auto gap-4">
           {/* Form Section */}
-          <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-            <CardHeader className="bg-gradient-to-r from-blue-600 py-3 to-purple-600 text-white rounded-t-lg">
+          <Card className=" border-0 bg-white/80 backdrop-blur-sm">
+            <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-t-lg">
               <CardTitle className="flex items-center gap-2 ">
-                <Sparkles className="h-5 w-5" />
+                <Origami className="h-5 w-5" />
                 Order Details
               </CardTitle>
               <CardDescription className="text-blue-100">
@@ -119,12 +120,12 @@ export default function OrderForm({total, session}:{total:number, session:Sessio
                 className="space-y-6 p-4"
               >
                 <div>
-                  <Label className="text-gray-700 font-semibold">
+                  <Label className="text-green-700 font-semibold">
                     First Name
                   </Label>
                   <Input
                     placeholder="Enter first name..."
-                    className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                    className="!border-green-300 focus:!border-green-500 focus:!ring-green-500"
                     {...register('firstName', { required: true })}
                   />
                   {errors.firstName && (
@@ -136,13 +137,13 @@ export default function OrderForm({total, session}:{total:number, session:Sessio
 
                 {/* Last Name */}
                 <div>
-                  <Label className="text-gray-700 font-semibold">
+                  <Label className="text-green-700 font-semibold">
                     Last Name
                   </Label>
 
                   <Input
                     placeholder="Enter your last name..."
-                    className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                    className="!border-green-300 focus:!border-green-500 focus:!ring-green-500"
                     {...register('lastName', { required: true })}
                   />
                   {errors.lastName && (
@@ -154,13 +155,13 @@ export default function OrderForm({total, session}:{total:number, session:Sessio
 
                 {/* Description */}
                 <div>
-                  <Label className="text-gray-700 font-semibold">
+                  <Label className="text-green-700 font-semibold">
                     Email Address
                   </Label>
 
                   <Input
                     placeholder="Enter your email address..."
-                    className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                    className="!border-green-300 focus:!border-green-500 focus:!ring-green-500"
                     {...register('email', { required: true })}
                   />
                   {errors.email && (
@@ -171,10 +172,10 @@ export default function OrderForm({total, session}:{total:number, session:Sessio
                 </div>
 
                 <div>
-                  <Label className="text-gray-700 font-semibold">Phone</Label>
+                  <Label className="text-green-700 font-semibold">Phone</Label>
                   <Input
                     placeholder="Enter your phone number..."
-                    className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                    className="!border-green-300 focus:!border-green-500 focus:!ring-green-500"
                     {...register('phone', { required: true })}
                   />
                   {errors.email && (
@@ -188,31 +189,95 @@ export default function OrderForm({total, session}:{total:number, session:Sessio
                   {loading ? (
                     <Button
                       type="submit"
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                      className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
                     >
-                        <Loader2 className="mr-2 h-4 w-4 text-blue-600 animate-spin" />
+                      <Loader2 className="mr-2 h-4 w-4 text-white animate-spin" />
                       Making An Order, Please Wait...
                     </Button>
                   ) : (
                     <Button
                       type="submit"
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                      className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
                     >
                       Make An Order
                     </Button>
                   )}
-
-                  {/* <Button
-                    type="button"
-                    onClick={onCancel}
-                    variant="outline"
-                    className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
-                  >
-                    Cancel
-                  </Button> */}
                 </div>
               </form>
             </CardContent>
+          </Card>
+          <Card
+            data-animate
+            className=" space-y-6  p-2 transition duration-700"
+            style={{ transitionDelay: '.1s' }}
+          >
+            {/* <!-- Header --> */}
+            <div className="flex items-center gap-3">
+              <span id="cart-icon" className="shrink-0 w-6 h-6 text-red">
+                <ShoppingCart className="text-green-600" />
+              </span>
+              <h2 className="text-2xl text-green-600 tracking-tight font-bold">
+                Your Cart
+              </h2>
+            </div>
+
+            {/* <!-- Products --> */}
+            <div className="divide-y divide-green-600 border border-green-600 rounded-lg overflow-hidden">
+              {/* <!-- Item --> */}
+              {cartArray.map((productInCart) => {
+                return (
+                  <div
+                    key={productInCart.id}
+                    className="flex items-center justify-between gap-4 p-4 hover:bg-green-50 transition"
+                  >
+                    <div className="flex items-center gap-4">
+                      <Image
+                        src={productInCart.images[0]}
+                        width={500}
+                        height={300}
+                        alt={productInCart.name}
+                        className="w-16 h-16 rounded-md object-cover"
+                      />
+                      <div>
+                        <p className="font-medium text-green-600">
+                          {productInCart.name}
+                        </p>
+                        <p className="text-sm text-green-400">
+                          {productInCart.numberOfPlates}{' '}
+                          {productInCart.name.toLowerCase()}s
+                        </p>
+                      </div>
+                    </div>
+                    <p className="font-semibold text-green-700">
+                      ${productInCart.price}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* <!-- Summary --> */}
+            <div className="border border-green-600 rounded-lg p-6 space-y-4">
+              <div className="flex justify-between text-sm">
+                <span className="text-green-700">Subtotal</span>
+                <span className="font-semibold text-green-700">
+                  ${subtotal}
+                </span>
+              </div>
+              {/* <div className="flex justify-between text-sm">
+                <span className='text-green-700'>Shipping</span>
+                <span>$12</span>
+              </div> */}
+              <div className="flex justify-between text-sm">
+                <span className="text-green-700">Tax</span>
+                <span className="font-semibold text-green-700">${tax}</span>
+              </div>
+              <hr className="border-green-600" />
+              <div className="flex justify-between font-semibold text-lg">
+                <span className="text-green-700">Total</span>
+                <span className="font-semibold text-green-700">${total}</span>
+              </div>
+            </div>
           </Card>
         </div>
       </div>

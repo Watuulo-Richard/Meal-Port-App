@@ -64,10 +64,8 @@ export function Cart({session}:{session:Session | null}) {
               Place Order
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-[425px] md:max-w-[625px]">
-            <div className="">
-              <OrderForm total={total} session={session}/>
-            </div>
+          <DialogContent className="max-w-[425px] md:max-w-[1025px]">
+              <OrderForm total={total} tax={tax} subtotal={subtotal} session={session}/>
           </DialogContent>
         </Dialog>
       </div>
